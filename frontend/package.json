@@ -14,11 +14,16 @@
   },
   "devDependencies": {
     "@testing-library/react": "^13.0.0",
-    "@testing-library/jest-dom": "^5.0.0",
-    "vitest": "^0.34.0"
+    "@testing-library/jest-dom": "^5.0.0"
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx}", "!src/index.js"],
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js"
+    ],
     "coverageReporters": ["lcov", "text"]
   }
 }
