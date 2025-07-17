@@ -1,0 +1,53 @@
+workflow:
+  name: TodoAPP Deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^feature\/.*/'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+
+stages:
+  - build
+  - test
+
+before_script:
+  - apk add --no-cache bash curl
+  - npm config set cache /tmp/npm-cache --global
+
+build-frontend:
+  stage: build
+  image: node:16-alpine
+  script: 
+    - cd frontend
+    - npm install --cache /tmp/npm-cache
+    - npm run build
+  artifacts:
+    when: on_success
+    access: all
+    expire_in: "1 days"
+    paths:
+      - frontend/build
+  cache:
+    key: frontend-node-modules
+    paths:
+      - frontend/node_modules
+  
+build-backend:
+  stage: build
+  image: node:16-alpine
+  script: 
+    - cd backend
+    - npm install --cache /tmp/npm-cache
+  artifacts:
+    when: on_success
+    access: all
+    expire_in: "1 days"
+    paths:
+      - backend/node_modules
+  cache:
+    key: backend-node-modules
+    paths:
+      - backend/node_modules
+  
