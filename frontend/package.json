@@ -16,14 +16,10 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/jest-dom": "^5.0.0"
   },
-  "jest": {
-    "testMatch": [
-      "/Volumes/Neku Anavasram/todo-app/frontend/tests/**/*.test.js"
-    ],
-    "collectCoverageFrom": [
+  
+  "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/index.js"
     ],
     "coverageReporters": ["lcov", "text"]
   }
-}
